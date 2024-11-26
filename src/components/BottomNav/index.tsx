@@ -18,12 +18,12 @@ function BottomNav() {
   };
 
   return (
-    <nav className="fixed bottom-1 left-0 right-0 px-4 py-1 sm:p-6">
+    <nav className="fixed bottom-2 left-0 right-0 px-4 py-1 sm:p-6">
       <div className="relative max-w-3xl lg:max-w-xl mx-auto">
         {/* Enhanced multi-layer glow effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/30 via-purple-500/30 to-pink-500/30 blur-3xl rounded-full animate-pulse" />
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 via-yellow-500/20 to-purple-500/20 blur-2xl rounded-full animate-pulse delay-75" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-white/10 blur-xl rounded-full" />
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-100/5 to-gray-100/10 blur-xl rounded-full" />
         
         {/* Enhanced glass effect for main container */}
         <div className="relative grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3 rounded-full p-2 
