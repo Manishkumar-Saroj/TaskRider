@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
-import { HomeIcon, SettingsIcon, Shield, HelpCircle } from './icons';
+import { HomeIcon, SettingsIcon, Shield, HelpCircle, CalendarDaysIcon, CalendarWeekIcon, CalendarMonthIcon } from './icons';
 import CloseIcon from '../../assets/icons/close-icon';
 import SidebarItem from './SidebarItem';
-import CalendarGroup from './CalendarGroup';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -153,7 +152,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
             {/* Navigation */}
             <nav className="flex-1 space-y-3 mb-6">
-              {/* Regular navigation items */}
+              {/* Home item */}
               <SidebarItem
                 key="/"
                 icon={HomeIcon}
@@ -163,10 +162,46 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
               />
               
               {/* Calendar group */}
-              <CalendarGroup 
-                isCurrentPath={isCurrentPath}
-                handleNavigation={handleNavigation}
-              />
+              <SidebarItem
+                icon={CalendarDaysIcon}
+                title="Calendar Views"
+                isCollapsible
+              >
+                {[
+                  { 
+                    title: 'Day View', 
+                    path: '/day', 
+                    icon: CalendarDaysIcon
+                  },
+                  { 
+                    title: 'Week View', 
+                    path: '/week', 
+                    icon: CalendarWeekIcon
+                  },
+                  { 
+                    title: 'Month View', 
+                    path: '/month', 
+                    icon: CalendarMonthIcon
+                  },
+                ].map((item) => (
+                  <button
+                    key={item.path}
+                    onClick={() => handleNavigation(item.path)}
+                    className={`w-full px-4 py-2.5 rounded-lg
+                      transition-all duration-300 ease-in-out
+                      hover:scale-102
+                      flex items-center gap-3
+                      select-none
+                      ${isCurrentPath(item.path)
+                        ? 'bg-yellow-400/10 text-yellow-400'
+                        : 'text-gray-400 hover:text-yellow-400 hover:bg-gray-100/5'
+                      }`}
+                  >
+                    <item.icon size={16} />
+                    <span className="text-sm font-medium">{item.title}</span>
+                  </button>
+                ))}
+              </SidebarItem>
               
               {/* Remaining navigation items */}
               {navigationItems.slice(1).map((item) => (
