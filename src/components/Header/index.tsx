@@ -8,7 +8,7 @@ function Header() {
                   'July', 'August', 'September', 'October', 'November', 'December'];
 
   return (
-    <header className="px-4 py-3 sm:p-6">
+    <header className="px-4 py-3 sm:p-6 z-50">
       <div className="relative max-w-3xl lg:max-w-xl mx-auto">
         {/* Glow effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/30 via-purple-500/30 to-pink-500/30 blur-3xl rounded-full animate-pulse" />
