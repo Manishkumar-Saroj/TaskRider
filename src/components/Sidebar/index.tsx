@@ -1,7 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
-import HomeIcon from '../../assets/icons/home-icon';
+import { HomeIcon, SettingsIcon, Shield, HelpCircle } from './icons';
+import CloseIcon from '../../assets/icons/close-icon';
+import SidebarItem from './SidebarItem';
+import CalendarGroup from './CalendarGroup';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -12,6 +15,9 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const [currentDate] = useState(new Date());
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                 'July', 'August', 'September', 'October', 'November', 'December'];
 
   const handlers = useSwipeable({
     onSwipedLeft: onClose,
@@ -45,6 +51,29 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   const isCurrentPath = (path: string) => location.pathname === path;
 
+  const navigationItems = [
+    { 
+      title: 'Home', 
+      path: '/', 
+      icon: HomeIcon
+    },
+    {
+      title: 'Settings',
+      path: '/settings',
+      icon: SettingsIcon
+    },
+    {
+      title: 'Privacy Policy',
+      path: '/privacy',
+      icon: Shield
+    },
+    {
+      title: 'FAQ',
+      path: '/faq',
+      icon: HelpCircle
+    }
+  ];
+
   return (
     <div 
       className={`fixed inset-0 z-[60] transition-all duration-300 ${
@@ -74,50 +103,86 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
           {/* Content */}
           <div className="relative h-full flex flex-col p-6">
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-8">
-              <HomeIcon color="#F4CE14" strokeWidth="2" className="w-7 h-7" />
-              <span className="text-xl font-semibold text-yellow-400">Dashboard</span>
+            {/* Close Button - moved to top right */}
+            <div className="absolute top-6 right-6 z-10">
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-600 via-purple-500 to-yellow-400 rounded-full blur opacity-50 group-hover:opacity-75 transition-all duration-500" />
+                <button 
+                  onClick={onClose}
+                  className="relative p-2 rounded-full 
+                    bg-gray-100/10 backdrop-blur-md
+                    transition-all duration-300 ease-in-out 
+                    hover:scale-110 hover:-translate-y-1 
+                    hover:shadow-lg hover:shadow-yellow-500/20
+                    active:scale-95"
+                >
+                  <CloseIcon 
+                    color="#F4CE14" 
+                    className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" 
+                    strokeWidth={2.5}
+                  />
+                </button>
+              </div>
+            </div>
+
+            {/* Header - removed left padding since button is now on right */}
+            <div className="flex items-center gap-4 mb-8 select-none">
+              {/* Profile Image with glow effect */}
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-600 via-purple-500 to-yellow-400 rounded-full blur opacity-50 group-hover:opacity-75 transition-all duration-500" />
+                <div className="relative w-12 h-12 rounded-full overflow-hidden 
+                  border-2 border-yellow-400/50
+                  transition-all duration-300 ease-in-out 
+                  hover:scale-110">
+                  <img 
+                    src="https://avatar.iran.liara.run/public" 
+                    alt="Profile" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Name and Date */}
+              <div className="flex-1">
+                <h1 className="text-lg font-semibold text-gray-100">Hi, John</h1>
+                <p className="text-sm text-gray-300">
+                  {currentDate.getDate()} {months[currentDate.getMonth()]}
+                </p>
+              </div>
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 space-y-3">
-              {[
-                { title: 'Home', path: '/' },
-                { title: 'Day View', path: '/day' },
-                { title: 'Week View', path: '/week' },
-                { title: 'Month View', path: '/month' },
-              ].map((item) => (
-                <button
+            <nav className="flex-1 space-y-3 mb-6">
+              {/* Regular navigation items */}
+              <SidebarItem
+                key="/"
+                icon={HomeIcon}
+                title="Home"
+                isActive={isCurrentPath('/')}
+                onClick={() => handleNavigation('/')}
+              />
+              
+              {/* Calendar group */}
+              <CalendarGroup 
+                isCurrentPath={isCurrentPath}
+                handleNavigation={handleNavigation}
+              />
+              
+              {/* Remaining navigation items */}
+              {navigationItems.slice(1).map((item) => (
+                <SidebarItem
                   key={item.path}
+                  icon={item.icon}
+                  title={item.title}
+                  isActive={isCurrentPath(item.path)}
                   onClick={() => handleNavigation(item.path)}
-                  className={`w-full group px-4 py-3.5 rounded-xl 
-                    transition-all duration-300 ease-in-out
-                    hover:scale-105 hover:-translate-x-1
-                    border border-gray-100/10
-                    flex items-center gap-3
-                    ${isCurrentPath(item.path) 
-                      ? 'bg-gray-100/15 border-gray-100/20' 
-                      : 'bg-gray-100/5 hover:bg-gray-100/10 hover:border-gray-100/20'
-                    }`}
-                >
-                  <span className={`text-sm font-medium transition-colors
-                    ${isCurrentPath(item.path)
-                      ? 'text-yellow-400'
-                      : 'text-gray-100 group-hover:text-yellow-400'
-                    }`}>
-                    {item.title}
-                  </span>
-                  <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-yellow-400">→</span>
-                  </div>
-                </button>
+                />
               ))}
             </nav>
 
             {/* Footer */}
             <div className="pt-6 border-t border-gray-100/10">
-              <div className="text-sm text-gray-400">
+              <div className="text-sm text-gray-400 select-none">
                 Version 1.0.0
               </div>
             </div>
