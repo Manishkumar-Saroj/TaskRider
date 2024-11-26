@@ -110,7 +110,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
           {/* Content container with enhanced glass effect */}
           <div className="relative h-full flex flex-col p-6 
             border-r border-gray-100/10
-            bg-gray-100/5 backdrop-blur-xl">
+            bg-gray-100/5 backdrop-blur-xl
+            overflow-y-auto scrollbar-none">
             
             {/* Close Button - with enhanced glow effect */}
             <div className="absolute top-6 right-6 z-10">
