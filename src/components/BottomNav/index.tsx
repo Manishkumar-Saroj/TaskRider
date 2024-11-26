@@ -26,7 +26,7 @@ function BottomNav() {
         <div className="absolute inset-0 bg-gradient-to-b from-gray-100/5 to-gray-100/10 blur-xl rounded-full" />
         
         {/* Enhanced glass effect for main container */}
-        <div className="relative grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3 rounded-full p-2 
+        <div className="relative grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3 rounded-3xl p-2 
           bg-gray-100/10 backdrop-blur-xl 
           border border-gray-100/20
           shadow-[inset_0_0_20px_rgba(243,244,246,0.05)]
@@ -35,7 +35,7 @@ function BottomNav() {
           {/* Left section with glass effect */}
           <div className="grid grid-cols-2 items-center gap-1 sm:gap-1.5 
             bg-gray-100/10 backdrop-blur-md 
-            rounded-full py-1.5 px-2 
+            rounded-2xl py-1.5 px-2 
             transition-all duration-500 ease-in-out 
             hover:scale-105 
             hover:shadow-lg hover:shadow-yellow-500/20">
@@ -64,13 +64,13 @@ function BottomNav() {
           {/* Center section with glass effect */}
           <div className="grid grid-cols-3 place-self-center w-fit 
             bg-gray-100/5 backdrop-blur-xl 
-            rounded-full p-1.5 
+            rounded-2xl p-1.5 
             transition-all duration-300 ease-in-out 
             hover:shadow-lg hover:shadow-yellow-500/20">
             {['Day', 'Week', 'Month'].map((period) => (
               <button 
                 key={period}
-                className={`group relative px-3 sm:px-5 py-1.5 sm:py-2 rounded-full transition-all duration-300 ease-in-out ${
+                className={`group relative px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl transition-all duration-300 ease-in-out ${
                   activePeriod === period 
                     ? 'bg-gray-900/50 scale-105 shadow-md shadow-yellow-500/20' 
                     : 'hover:scale-105'
