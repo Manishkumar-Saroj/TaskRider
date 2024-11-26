@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
-import { HomeIcon, SettingsIcon, Shield, HelpCircle, CalendarDaysIcon, CalendarWeekIcon, CalendarMonthIcon, LogoutIcon, ArrowRightIcon, TermsIcon } from './icons';
+import { HomeIcon, SettingsIcon, Shield, HelpCircle, CalendarDaysIcon, CalendarWeekIcon, CalendarMonthIcon, LogoutIcon, ArrowRightIcon, TermsIcon, MessageSquare } from './icons';
 import CloseIcon from '../../assets/icons/close-icon';
 import SidebarItem from './SidebarItem';
 import GeekHeadLogo from '../../assets/logos/geekhead.png'
@@ -230,6 +230,11 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     title: 'FAQ',
                     path: '/faq',
                     icon: HelpCircle
+                  },
+                  {
+                    title: 'Feedback',
+                    path: '/feedback',
+                    icon: MessageSquare
                   }
                 ].map((item) => (
                   <button

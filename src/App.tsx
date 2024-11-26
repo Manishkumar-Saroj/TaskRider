@@ -8,6 +8,7 @@ import Month from './pages/Month';
 import Settings from './pages/Settings';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import FAQ from './pages/FAQ';
+import Feedback from './pages/Feedback';
 
 function AppContent() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function AppContent() {
       <Route path="/settings" element={<Settings />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/faq" element={<FAQ />} />
+      <Route path="/feedback" element={<Feedback />} />
     </Routes>
   );
 }
