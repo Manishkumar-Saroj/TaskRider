@@ -9,6 +9,8 @@ interface SidebarItemProps {
   onClick?: () => void;
   children?: React.ReactNode;
   isCollapsible?: boolean;
+  isOpen?: boolean;
+  onCollapsibleClick?: () => void;
 }
 
 function SidebarItem({ 
@@ -17,13 +19,13 @@ function SidebarItem({
   isActive = false, 
   onClick, 
   children, 
-  isCollapsible = false 
+  isCollapsible = false,
+  isOpen = false,
+  onCollapsibleClick
 }: SidebarItemProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
   const handleClick = () => {
     if (isCollapsible) {
-      setIsOpen(!isOpen);
+      onCollapsibleClick?.();
     } else if (onClick) {
       onClick();
     }

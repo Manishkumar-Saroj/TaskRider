@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
-import { HomeIcon, SettingsIcon, Shield, HelpCircle, CalendarDaysIcon, CalendarWeekIcon, CalendarMonthIcon, LogoutIcon, ArrowRightIcon } from './icons';
+import { HomeIcon, SettingsIcon, Shield, HelpCircle, CalendarDaysIcon, CalendarWeekIcon, CalendarMonthIcon, LogoutIcon, ArrowRightIcon, TermsIcon } from './icons';
 import CloseIcon from '../../assets/icons/close-icon';
 import SidebarItem from './SidebarItem';
 import GeekHeadLogo from '../../assets/logos/geekhead.png'
@@ -11,6 +11,8 @@ interface SidebarProps {
   onClose: () => void;
 }
 
+type CollapsibleSection = 'calendar' | 'others' | null;
+
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +20,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const [currentDate] = useState(new Date());
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 
                  'July', 'August', 'September', 'October', 'November', 'December'];
+  const [openSection, setOpenSection] = useState<CollapsibleSection>(null);
 
   const handlers = useSwipeable({
     onSwipedLeft: onClose,
@@ -51,6 +54,10 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   const isCurrentPath = (path: string) => location.pathname === path;
 
+  const handleCollapsibleClick = (section: CollapsibleSection) => {
+    setOpenSection(openSection === section ? null : section);
+  };
+
   const navigationItems = [
     { 
       title: 'Home', 
@@ -61,16 +68,6 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
       title: 'Settings',
       path: '/settings',
       icon: SettingsIcon
-    },
-    {
-      title: 'Privacy Policy',
-      path: '/privacy',
-      icon: Shield
-    },
-    {
-      title: 'FAQ',
-      path: '/faq',
-      icon: HelpCircle
     }
   ];
 
@@ -176,6 +173,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 icon={CalendarDaysIcon}
                 title="Calendar Views"
                 isCollapsible
+                isOpen={openSection === 'calendar'}
+                onCollapsibleClick={() => handleCollapsibleClick('calendar')}
               >
                 {[
                   { 
@@ -213,16 +212,57 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 ))}
               </SidebarItem>
               
-              {/* Remaining navigation items */}
-              {navigationItems.slice(1).map((item) => (
-                <SidebarItem
-                  key={item.path}
-                  icon={item.icon}
-                  title={item.title}
-                  isActive={isCurrentPath(item.path)}
-                  onClick={() => handleNavigation(item.path)}
-                />
-              ))}
+              {/* Settings item */}
+              <SidebarItem
+                icon={SettingsIcon}
+                title="Settings"
+                isActive={isCurrentPath('/settings')}
+                onClick={() => handleNavigation('/settings')}
+              />
+              
+              {/* Others group */}
+              <SidebarItem
+                icon={HelpCircle}
+                title="Others"
+                isCollapsible
+                isOpen={openSection === 'others'}
+                onCollapsibleClick={() => handleCollapsibleClick('others')}
+              >
+                {[
+                  {
+                    title: 'Privacy Policy',
+                    path: '/privacy-policy',
+                    icon: Shield
+                  },
+                  {
+                    title: 'Terms & Conditions',
+                    path: '/terms',
+                    icon: TermsIcon
+                  },
+                  {
+                    title: 'FAQ',
+                    path: '/faq',
+                    icon: HelpCircle
+                  }
+                ].map((item) => (
+                  <button
+                    key={item.path}
+                    onClick={() => handleNavigation(item.path)}
+                    className={`w-full px-4 py-2.5 rounded-lg
+                      transition-all duration-300 ease-in-out
+                      hover:scale-102
+                      flex items-center gap-3
+                      select-none
+                      ${isCurrentPath(item.path)
+                        ? 'bg-yellow-400/10 text-yellow-400'
+                        : 'text-gray-400 hover:text-yellow-400 hover:bg-gray-100/5'
+                      }`}
+                  >
+                    <item.icon size={16} />
+                    <span className="text-sm font-medium">{item.title}</span>
+                  </button>
+                ))}
+              </SidebarItem>
             </nav>
 
             {/* Logout Button */}
