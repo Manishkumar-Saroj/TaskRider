@@ -1,6 +1,5 @@
 import { IconProps } from './icons';
 import { ArrowLeft, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
 
 interface SidebarItemProps {
   icon: ({ className, strokeWidth, color, size }: IconProps) => JSX.Element;

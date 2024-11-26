@@ -58,19 +58,6 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     setOpenSection(openSection === section ? null : section);
   };
 
-  const navigationItems = [
-    { 
-      title: 'Home', 
-      path: '/', 
-      icon: HomeIcon
-    },
-    {
-      title: 'Settings',
-      path: '/settings',
-      icon: SettingsIcon
-    }
-  ];
-
   return (
     <div 
       className={`fixed inset-0 z-[60] transition-all duration-300 ${
