@@ -2,19 +2,37 @@ import { useState } from 'react';
 import Hamburger from '../Hamburger';
 import HomeIcon from '../../assets/icons/home-icon';
 import PlusIcon from '../../assets/icons/plus-icon';
+import { useNavigate } from 'react-router-dom';
 
 function BottomNav() {
+  const navigate = useNavigate();
   const [activeNav, setActiveNav] = useState<'menu' | 'home' | null>('home');
   const [activePeriod, setActivePeriod] = useState<string | null>(null);
 
   const handleNavClick = (nav: 'menu' | 'home') => {
     setActiveNav(nav);
     setActivePeriod(null);
+    if (nav === 'home') {
+      navigate('/');
+    }
   };
 
   const handlePeriodClick = (period: string) => {
     setActivePeriod(activePeriod === period ? null : period);
     setActiveNav(null);
+    
+    // Navigate based on period
+    switch(period.toLowerCase()) {
+      case 'day':
+        navigate('/day');
+        break;
+      case 'week':
+        navigate('/week');
+        break;
+      case 'month':
+        navigate('/month');
+        break;
+    }
   };
 
   return (
