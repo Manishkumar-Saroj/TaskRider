@@ -1,38 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Hamburger from '../Hamburger';
 import HomeIcon from '../../assets/icons/home-icon';
 import PlusIcon from '../../assets/icons/plus-icon';
-import { useNavigate } from 'react-router-dom';
 
-function BottomNav() {
+interface BottomNavProps {
+  onMenuClick: () => void;
+  isSidebarOpen: boolean;
+}
+
+function BottomNav({ onMenuClick, isSidebarOpen }: BottomNavProps) {
   const navigate = useNavigate();
-  const [activeNav, setActiveNav] = useState<'menu' | 'home' | null>('home');
+  const location = useLocation();
+  const [activeNav, setActiveNav] = useState<'menu' | 'home' | null>(null);
   const [activePeriod, setActivePeriod] = useState<string | null>(null);
 
-  const handleNavClick = (nav: 'menu' | 'home') => {
-    setActiveNav(nav);
-    setActivePeriod(null);
-    if (nav === 'home') {
-      navigate('/');
+  // Sync with current route
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === '/') {
+      setActiveNav('home');
+      setActivePeriod(null);
+    } else {
+      const period = path.slice(1); // Remove leading slash
+      setActivePeriod(period.charAt(0).toUpperCase() + period.slice(1));
+      setActiveNav(null);
     }
+  }, [location.pathname]);
+
+  const handleMenuClick = () => {
+    onMenuClick();
   };
 
   const handlePeriodClick = (period: string) => {
-    setActivePeriod(activePeriod === period ? null : period);
+    const newPeriod = activePeriod === period ? null : period;
+    setActivePeriod(newPeriod);
     setActiveNav(null);
     
-    // Navigate based on period
-    switch(period.toLowerCase()) {
-      case 'day':
-        navigate('/day');
-        break;
-      case 'week':
-        navigate('/week');
-        break;
-      case 'month':
-        navigate('/month');
-        break;
+    if (newPeriod) {
+      navigate(`/${period.toLowerCase()}`);
     }
+  };
+
+  const handleHomeClick = () => {
+    setActiveNav('home');
+    setActivePeriod(null);
+    navigate('/');
   };
 
   return (
@@ -57,23 +70,28 @@ function BottomNav() {
             transition-all duration-500 ease-in-out 
             hover:scale-105 
             hover:shadow-lg hover:shadow-yellow-500/20">
-            <button 
+            <div 
               className={`p-1 sm:p-1.5 rounded-full transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg active:translate-y-0 ${
                 activeNav === 'menu' 
                   ? 'bg-gray-900/50 scale-110 shadow-md shadow-yellow-500/20' 
                   : 'hover:scale-105'
               }`}
-              onClick={() => handleNavClick('menu')}
             >
-              <Hamburger size='1.6rem' color='#ffffff' className="transition-all duration-300 ease-in-out sm:text-[1.8rem] hover:rotate-12"/>
-            </button>
+              <Hamburger 
+                size='1.6rem' 
+                color='#ffffff' 
+                className="transition-all duration-300 ease-in-out sm:text-[1.8rem] hover:rotate-12"
+                isOpen={isSidebarOpen}
+                onToggle={handleMenuClick}
+              />
+            </div>
             <button 
               className={`p-2 sm:p-1.5 rounded-full transition-all duration-300 ease-in-out hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center ${
                 activeNav === 'home' 
                   ? 'bg-gray-900/50 scale-110 ' 
                   : 'hover:scale-105'
               }`}
-              onClick={() => handleNavClick('home')}
+              onClick={handleHomeClick}
             >
               <HomeIcon color='#F4CE14' strokeWidth='2' className='w-5 sm:w-6 transition-all duration-300 ease-in-out'/>
             </button>
