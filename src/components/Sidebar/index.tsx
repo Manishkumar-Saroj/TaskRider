@@ -217,16 +217,6 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
               >
                 {[
                   {
-                    title: 'Privacy Policy',
-                    path: '/privacy-policy',
-                    icon: Shield
-                  },
-                  {
-                    title: 'Terms & Conditions',
-                    path: '/terms',
-                    icon: TermsIcon
-                  },
-                  {
                     title: 'FAQ',
                     path: '/faq',
                     icon: HelpCircle
@@ -235,6 +225,16 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     title: 'Feedback',
                     path: '/feedback',
                     icon: MessageSquare
+                  },
+                  {
+                    title: 'Privacy Policy',
+                    path: '/privacy-policy',
+                    icon: Shield
+                  },
+                  {
+                    title: 'Terms & Conditions',
+                    path: '/terms-and-conditions',
+                    icon: TermsIcon
                   }
                 ].map((item) => (
                   <button
