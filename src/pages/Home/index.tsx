@@ -190,7 +190,7 @@ function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-900 p-4 pb-24">
+    <div className="min-h-screen bg-gray-900 p-4 pb-24 overflow-y-auto scrollbar-none">
       {/* Gradient background effects */}
       <div className="fixed inset-0 bg-gradient-to-br from-yellow-500/5 via-purple-500/5 to-pink-500/5" />
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-900/90 to-gray-900/80" />
