@@ -11,7 +11,9 @@ import FAQ from './pages/FAQ';
 import Feedback from './pages/Feedback';
 import TermsAndConditions from './pages/TermsAndConditions';
 import Login from './pages/Auth/login';
-
+import ForgotPassword from './pages/Auth/forgot-password';
+import VerifyOTP from './pages/Auth/verify-otp';
+import ResetPassword from './pages/Auth/reset-password';
 
 // Protected Route Component
 interface ProtectedRouteProps {
@@ -41,6 +43,9 @@ function AppContent() {
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
+        <Route path='/forgot-password' element={<ForgotPassword/>} />
+        <Route path='/verify-otp' element={<VerifyOTP/>} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         
         {/* Protected Routes */}
         <Route path="/" element={
