@@ -48,7 +48,7 @@ function Login() {
     return (
       <div className="min-h-screen bg-gray-900 overflow-hidden relative">
         {/* Gradient background effects */}
-        <div className="fixed inset-0 bg-gradient-to-br from-yellow-500/5 via-purple-500/5 to-pink-500/5" />
+        <div className="fixed inset-0 bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-teal-500/5" />
         <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-900/90 to-gray-900/80" />
   
         <div className="relative min-h-screen flex flex-col md:flex-row items-center justify-center p-4 sm:p-6 lg:p-8">
@@ -59,15 +59,48 @@ function Login() {
               bg-gray-800/30 backdrop-blur-sm">
               <div className="max-w-md mx-auto">
                 <div className="relative group mb-6 sm:mb-8">
-                  {/* Logo glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-purple-500/20 to-pink-500/20 blur-xl rounded-2xl" />
-                  <div className="relative">
+                  {/* Enhanced glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 via-emerald-500/20 to-teal-500/20 blur-xl rounded-2xl" />
+                  <div className="relative flex items-center">
                     <motion.div 
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      className="h-12 w-12 sm:h-14 sm:w-14 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center"
+                      className="flex items-center gap-4"
                     >
-                      <span className="text-2xl sm:text-3xl">⚡</span>
+                      {/* Logo */}
+                      <div className="h-12 w-12 sm:h-14 sm:w-14 
+                        bg-gradient-to-r from-green-500 to-emerald-600 
+                        rounded-2xl flex items-center justify-center
+                        shadow-lg shadow-green-500/20"
+                      >
+                        <span className="text-2xl sm:text-3xl">⚡</span>
+                      </div>
+                      
+                      {/* Brand Name */}
+                      <div className="flex items-center">
+                        <motion.span
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4 }}
+                          className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-500 text-transparent bg-clip-text"
+                        >
+                          Task
+                        </motion.span>
+                        <motion.span
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.6 }}
+                          className="text-2xl sm:text-3xl font-bold text-white"
+                        >
+                          Rider
+                        </motion.span>
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ delay: 0.8 }}
+                          className="w-2 h-2 rounded-full bg-green-500 ml-2 animate-pulse"
+                        />
+                      </div>
                     </motion.div>
                   </div>
                 </div>
@@ -98,7 +131,7 @@ function Login() {
                 className="relative max-w-md mx-auto"
               >
                 {/* Form glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 via-purple-500/10 to-pink-500/10 blur-xl rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-teal-500/10 blur-xl rounded-2xl" />
                 
                 <div className="relative p-4 sm:p-6 lg:p-8 rounded-2xl 
                   bg-gray-800/40 backdrop-blur-xl 
@@ -122,7 +155,7 @@ function Login() {
                             rounded-xl
                             text-white text-sm sm:text-base
                             border border-gray-700/50
-                            focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent
+                            focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-transparent
                             transition duration-200
                             placeholder:text-gray-500"
                           placeholder="Enter your email or username"
@@ -144,7 +177,7 @@ function Login() {
                             rounded-xl
                             text-white text-sm sm:text-base
                             border border-gray-700/50
-                            focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:border-transparent
+                            focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-transparent
                             transition duration-200
                             placeholder:text-gray-500"
                           placeholder="Enter your password"
@@ -152,21 +185,10 @@ function Login() {
                       </div>
                     </div>
   
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-                      <div className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id="remember"
-                          className="h-4 w-4 rounded border-gray-700 text-yellow-500 focus:ring-yellow-500/50
-                            bg-gray-800/50"
-                        />
-                        <label htmlFor="remember" className="ml-2 block text-sm text-gray-400">
-                          Remember me
-                        </label>
-                      </div>
+                    <div className="text-right">
                       <Link 
                         to="/forgot-password" 
-                        className="text-sm text-yellow-500 hover:text-yellow-400 transition-colors"
+                        className="text-sm text-green-500 hover:text-green-400 transition-colors"
                       >
                         Forgot password?
                       </Link>
@@ -177,27 +199,17 @@ function Login() {
                       whileTap={{ scale: 0.99 }}
                       type="submit"
                       className="w-full py-2.5 sm:py-3.5 px-4
-                        bg-gradient-to-r from-yellow-500 to-yellow-600
-                        hover:from-yellow-400 hover:to-yellow-500
+                        bg-gradient-to-r from-green-500 to-emerald-600
+                        hover:from-green-400 hover:to-emerald-500
                         text-gray-900 font-semibold
                         text-sm sm:text-base
                         rounded-xl
                         transition-all duration-300
-                        focus:outline-none focus:ring-2 focus:ring-yellow-500/50
-                        shadow-lg shadow-yellow-500/20"
+                        focus:outline-none focus:ring-2 focus:ring-green-500/50
+                        shadow-lg shadow-green-500/20"
                     >
                       Sign in
                     </motion.button>
-  
-                    <p className="text-center text-xs sm:text-sm text-gray-400">
-                      Don't have an account?{' '}
-                      <Link 
-                        to="/register" 
-                        className="font-medium text-yellow-500 hover:text-yellow-400 transition-colors"
-                      >
-                        Create an account
-                      </Link>
-                    </p>
                   </form>
                 </div>
               </motion.div>

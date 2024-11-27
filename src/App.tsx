@@ -14,6 +14,7 @@ import Login from './pages/Auth/login';
 import ForgotPassword from './pages/Auth/forgot-password';
 import VerifyOTP from './pages/Auth/verify-otp';
 import ResetPassword from './pages/Auth/reset-password';
+import LandingPage from './LandingPage';
 
 // Protected Route Component
 interface ProtectedRouteProps {
@@ -46,6 +47,8 @@ function AppContent() {
         <Route path='/forgot-password' element={<ForgotPassword/>} />
         <Route path='/verify-otp' element={<VerifyOTP/>} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/t1" element={<LandingPage />} />
+
         
         {/* Protected Routes */}
         <Route path="/" element={
