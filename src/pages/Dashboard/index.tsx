@@ -27,7 +27,7 @@ function Dashboard() {
       isSidebarOpen ? 'overflow-hidden' : ''
     }`} {...handlers}>
       <Header />
-      <main className="flex-1 mb-16 pt-20 sm:pt-28">
+      <main className="flex-1 mb-16 pt-24">
         <Outlet />
       </main>
       <BottomNav 

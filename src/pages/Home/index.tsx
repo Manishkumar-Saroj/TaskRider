@@ -70,7 +70,7 @@ function Home() {
       {/* Main content */}
       <div className="relative max-w-7xl mx-auto space-y-6 select-none">
         {/* Header */}
-        <header className="space-y-1">
+        <header className="space-y-2">
           <h1 className="text-2xl font-bold text-gray-100">Dashboard</h1>
           <p className="text-sm text-gray-400">Welcome back! Here's your overview.</p>
         </header>
