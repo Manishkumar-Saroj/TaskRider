@@ -97,7 +97,7 @@ function Day() {
   };
 
   return (
-    <div className="min-h-screen px-4 pb-24 sm:p-6 bg-zinc-900">
+    <div className="min-h-screen px-4 pb-24 sm:p-6 bg-zinc-900 -mt-2.5">
       <div className="relative max-w-3xl lg:max-w-xl mx-auto">
         {/* Glow effects - removed animate-pulse and adjusted opacity */}
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-purple-500/20 to-pink-500/20 blur-3xl rounded-full" />
@@ -106,7 +106,7 @@ function Day() {
         {/* Main container */}
         <div className="relative 
           bg-gray-100/10 backdrop-blur-xl 
-          rounded-3xl p-6 sm:p-8
+          rounded-b-[35%] p-6 sm:p-8
           border border-gray-100/20
           shadow-[inset_0_0_20px_rgba(243,244,246,0.05)]">
           
