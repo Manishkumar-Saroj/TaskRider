@@ -1,4 +1,50 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
 function Home() {
+  // Add new state for sync status
+  const [syncStatus, setSyncStatus] = useState<'online' | 'offline' | 'syncing'>('online');
+  const [lastSynced, setLastSynced] = useState<string | null>(null);
+  const [pendingChanges, setPendingChanges] = useState<number>(0); // Track offline changes
+
+  // Add useEffect to monitor online/offline status
+  useEffect(() => {
+    const handleOnline = () => {
+      setSyncStatus('online');
+      syncData(); // Trigger sync when coming back online
+    };
+    
+    const handleOffline = () => setSyncStatus('offline');
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Set initial status
+    setSyncStatus(navigator.onLine ? 'online' : 'offline');
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // Mock sync function - replace with your actual sync logic
+  const syncData = async () => {
+    if (syncStatus === 'syncing') return;
+    
+    setSyncStatus('syncing');
+    try {
+      // Your sync logic here
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setLastSynced(new Date().toISOString());
+      setPendingChanges(0); // Clear pending changes after successful sync
+      setSyncStatus('online');
+    } catch (error) {
+      console.error('Sync failed:', error);
+      setSyncStatus('offline');
+    }
+  };
+
   // Mock data - in a real app, this would come from your data source
   const stats = [
     { 
@@ -61,6 +107,88 @@ function Home() {
     }).format(amount).replace('INR', '₹');
   };
 
+  // Enhanced sync status display component
+  const SyncStatusIndicator = () => (
+    <motion.div layout className="relative">
+      {/* Glow effects */}
+      <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/30 via-purple-500/30 to-pink-500/30 blur-3xl rounded-full animate-pulse" />
+      <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 via-yellow-500/20 to-purple-500/20 blur-2xl rounded-full animate-pulse delay-75" />
+      
+      {/* Main container */}
+      <div className="relative flex items-center gap-2 p-1 
+        bg-gray-100/10 backdrop-blur-xl 
+        rounded-xl
+        border border-gray-100/20
+        shadow-[inset_0_0_20px_rgba(243,244,246,0.05)]">
+        
+        {/* Status Indicator */}
+        <div className="flex items-center gap-2 px-3 py-1.5 
+          bg-gray-100/10 backdrop-blur-md rounded-lg">
+          <motion.div 
+            className={`w-2 h-2 rounded-full ${
+              syncStatus === 'online' ? 'bg-emerald-500' :
+              syncStatus === 'offline' ? 'bg-rose-500' :
+              'bg-amber-500'
+            }`}
+            animate={{
+              scale: (syncStatus as 'online' | 'offline' | 'syncing') === 'syncing' ? [1, 1.2, 1] : 1
+            }}
+            transition={{ repeat: (syncStatus as 'online' | 'offline' | 'syncing') === 'syncing' ? Infinity : 0 }}
+          />
+          <span className="text-xs font-medium text-gray-100">
+            {syncStatus === 'online' ? 'Online' :
+             syncStatus === 'offline' ? 'Offline' :
+             'Syncing...'}
+          </span>
+        </div>
+
+        {/* Sync Button - Only show when offline */}
+        {syncStatus === 'offline' && (
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-600 via-purple-500 to-yellow-400 rounded-full blur opacity-50 group-hover:opacity-75 transition-all duration-500" />
+            <motion.button
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95, y: 0 }}
+              onClick={syncData}
+              className="relative p-2 rounded-lg 
+                bg-gray-100/10 backdrop-blur-md
+                hover:shadow-lg hover:shadow-yellow-500/20
+                transition-all duration-300"
+            >
+              <motion.svg 
+                className="w-4 h-4 text-yellow-400" 
+                fill="none" 
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                animate={{
+                  rotate: (syncStatus as 'online' | 'offline' | 'syncing') === 'syncing' ? [0, 360] : 0
+                }}
+                transition={{
+                  repeat: (syncStatus as 'online' | 'offline' | 'syncing') === 'syncing' ? Infinity : 0,
+                  duration: 2,
+                  ease: "linear"
+                }}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
+                />
+              </motion.svg>
+            </motion.button>
+          </div>
+        )}
+
+        {/* Pending Changes Badge */}
+        {pendingChanges > 0 && syncStatus === 'offline' && (
+          <span className="px-2 py-1 text-xs font-medium rounded-xl 
+            bg-yellow-500/20 text-yellow-400 
+            backdrop-blur-md">
+            {pendingChanges}
+          </span>
+        )}
+      </div>
+    </motion.div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-900 p-4 pb-24">
       {/* Gradient background effects */}
@@ -69,10 +197,14 @@ function Home() {
 
       {/* Main content */}
       <div className="relative max-w-7xl mx-auto space-y-6 select-none">
-        {/* Header */}
-        <header className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-100">Dashboard</h1>
-          <p className="text-sm text-gray-400">Welcome back! Here's your overview.</p>
+        {/* Updated Header */}
+        <header className="flex justify-between items-start mb-8">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-gray-100">Dashboard</h1>
+            <p className="text-sm text-gray-400">Welcome back! Here's your overview.</p>
+          </div>
+          
+          <SyncStatusIndicator />
         </header>
 
         {/* Stats Overview */}
@@ -105,7 +237,7 @@ function Home() {
                   {/* Today's stats */}
                   <div>
                     <p className="text-xl font-bold text-gray-100 
-                      tracking-tight group-hover:text-white">
+                      tracking-tight group-hover:text-gray-100">
                       {stat.today.value}
                     </p>
                     <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">
