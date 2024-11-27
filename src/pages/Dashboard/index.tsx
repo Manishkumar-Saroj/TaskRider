@@ -25,7 +25,7 @@ function Dashboard() {
   return (
     <div className="h-screen flex flex-col bg-zinc-900" {...handlers}>
       <Header />
-      <main className="flex-1 mb-16 pt-24">
+      <main className="flex-1 mb-16 pt-20 sm:pt-28">
         <Outlet />
       </main>
       <BottomNav 
