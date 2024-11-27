@@ -137,7 +137,7 @@ function BottomNav({ onMenuClick, isSidebarOpen }: BottomNavProps) {
               hover:-translate-y-1.5 active:translate-y-0 
               hover:shadow-lg hover:shadow-yellow-500/20
               group-hover:from-yellow-300 group-hover:to-yellow-400">
-              <PlusIcon color='#000' strokeWidth='3' className='w-4 sm:w-5 group-hover:rotate-180 transition-transform duration-500 ease-in-out'/>
+              <PlusIcon color='#000' strokeWidth='3' className='w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-180 transition-transform duration-500 ease-in-out'/>
             </button>
           </div>
         </div>
