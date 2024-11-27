@@ -4,14 +4,14 @@ function Home() {
     { 
       label: 'Tasks',
       today: { value: '3', label: 'Today' },
-      total: { value: '8/20', label: 'Completed' },
+      total: { value: '12', label: 'Total' },
       icon: '📋',
       gradient: 'from-yellow-500/20 via-orange-500/20 to-red-500/20'
     },
     { 
       label: 'Reminders',
       today: { value: '2', label: 'Today' },
-      total: { value: '3 Left', label: 'Remaining' },
+      total: { value: '5', label: 'Total' },
       icon: '⏰',
       gradient: 'from-purple-500/20 via-indigo-500/20 to-blue-500/20'
     },
@@ -74,25 +74,6 @@ function Home() {
           <h1 className="text-2xl font-bold text-gray-100">Dashboard</h1>
           <p className="text-sm text-gray-400">Welcome back! Here's your overview.</p>
         </header>
-
-          {/* Financial Summary */}
-          <div className="relative group lg:col-span-2">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-yellow-500/10 blur-xl rounded-2xl" />
-            <div className="relative p-4 rounded-2xl bg-gray-100/10 backdrop-blur-xl border border-gray-100/20
-              transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20">
-              <h2 className="text-lg font-semibold text-gray-100 mb-4">Financial Overview</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
-                  <h3 className="text-sm text-green-400">Total Income</h3>
-                  <p className="text-xl font-semibold text-green-300">{formatIndianCurrency(2450)}</p>
-                </div>
-                <div className="p-4 rounded-xl bg-pink-500/10 border border-pink-500/20">
-                  <h3 className="text-sm text-pink-400">Total Expenses</h3>
-                  <p className="text-xl font-semibold text-pink-300">{formatIndianCurrency(1280)}</p>
-                </div>
-              </div>
-            </div>
-          </div>
 
         {/* Stats Overview */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -184,6 +165,25 @@ function Home() {
                     <span className="text-xs font-medium text-yellow-400">{reminder.time}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Financial Summary */}
+          <div className="relative group lg:col-span-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-yellow-500/10 blur-xl rounded-2xl" />
+            <div className="relative p-4 rounded-2xl bg-gray-100/10 backdrop-blur-xl border border-gray-100/20
+              transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20">
+              <h2 className="text-lg font-semibold text-gray-100 mb-4">Financial Overview</h2>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
+                  <h3 className="text-sm text-green-400">Total Income</h3>
+                  <p className="text-xl font-semibold text-green-300">{formatIndianCurrency(2450)}</p>
+                </div>
+                <div className="p-4 rounded-xl bg-pink-500/10 border border-pink-500/20">
+                  <h3 className="text-sm text-pink-400">Total Expenses</h3>
+                  <p className="text-xl font-semibold text-pink-300">{formatIndianCurrency(1280)}</p>
+                </div>
               </div>
             </div>
           </div>
