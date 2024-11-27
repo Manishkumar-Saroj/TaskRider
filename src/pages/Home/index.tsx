@@ -4,14 +4,14 @@ function Home() {
     { 
       label: 'Tasks',
       today: { value: '3', label: 'Today' },
-      total: { value: '12', label: 'Total' },
+      total: { value: '8/20', label: 'Completed' },
       icon: '📋',
       gradient: 'from-yellow-500/20 via-orange-500/20 to-red-500/20'
     },
     { 
       label: 'Reminders',
       today: { value: '2', label: 'Today' },
-      total: { value: '5', label: 'Total' },
+      total: { value: '3 Left', label: 'Remaining' },
       icon: '⏰',
       gradient: 'from-purple-500/20 via-indigo-500/20 to-blue-500/20'
     },
@@ -68,70 +68,79 @@ function Home() {
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-900/90 to-gray-900/80" />
 
       {/* Main content */}
-      <div className="relative max-w-7xl mx-auto space-y-6">
+      <div className="relative max-w-7xl mx-auto space-y-6 select-none">
         {/* Header */}
         <header className="space-y-1">
           <h1 className="text-2xl font-bold text-gray-100">Dashboard</h1>
           <p className="text-sm text-gray-400">Welcome back! Here's your overview.</p>
         </header>
 
+          {/* Financial Summary */}
+          <div className="relative group lg:col-span-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-yellow-500/10 blur-xl rounded-2xl" />
+            <div className="relative p-4 rounded-2xl bg-gray-100/10 backdrop-blur-xl border border-gray-100/20
+              transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20">
+              <h2 className="text-lg font-semibold text-gray-100 mb-4">Financial Overview</h2>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
+                  <h3 className="text-sm text-green-400">Total Income</h3>
+                  <p className="text-xl font-semibold text-green-300">{formatIndianCurrency(2450)}</p>
+                </div>
+                <div className="p-4 rounded-xl bg-pink-500/10 border border-pink-500/20">
+                  <h3 className="text-sm text-pink-400">Total Expenses</h3>
+                  <p className="text-xl font-semibold text-pink-300">{formatIndianCurrency(1280)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {stats.map((stat) => (
             <div key={stat.label} className="group relative">
-              {/* Animated gradient background */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} blur-xl rounded-2xl opacity-60 
-                group-hover:opacity-80 transition-opacity duration-300`} />
+              {/* Simplified gradient background */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${stat.gradient} blur-md rounded-2xl opacity-40 
+                group-hover:opacity-60 transition-opacity duration-300`} />
               
-              {/* Main card */}
+              {/* Main card - centered content */}
               <div className="relative p-4 rounded-2xl 
-                bg-gray-100/10 backdrop-blur-xl 
-                border border-gray-100/20 
+                bg-gray-800/40 backdrop-blur-xl 
+                border border-gray-700/50
                 transition-all duration-300 
-                group-hover:scale-[1.02] group-hover:-translate-y-0.5
-                group-hover:shadow-lg">
+                active:scale-95 touch-manipulation">
                 
-                {/* Header with icon and label */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-10 h-10 
-                    rounded-xl bg-gray-100/10 backdrop-blur-sm 
-                    border border-gray-100/20
-                    group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-xl">{stat.icon}</span>
+                {/* Icon and label in more compact layout */}
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="flex items-center justify-center w-8 h-8 
+                    rounded-lg bg-gray-700/50 backdrop-blur-sm 
+                    border border-gray-600/50">
+                    <span className="text-base">{stat.icon}</span>
                   </div>
-                  <h3 className="text-gray-400 font-medium">{stat.label}</h3>
+                  <h3 className="text-sm text-gray-400 font-medium text-center">{stat.label}</h3>
                 </div>
 
-                {/* Stats grid */}
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100/10">
+                {/* Stats centered */}
+                <div className="space-y-2 text-center">
                   {/* Today's stats */}
-                  <div className="space-y-1">
-                    <p className="text-2xl font-bold text-gray-100 
-                      tracking-tight group-hover:text-yellow-300 
-                      transition-colors duration-300">
+                  <div>
+                    <p className="text-xl font-bold text-gray-100 
+                      tracking-tight group-hover:text-white">
                       {stat.today.value}
                     </p>
-                    <p className="text-xs text-gray-400 uppercase tracking-wider">
+                    <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">
                       {stat.today.label}
                     </p>
                   </div>
 
-                  {/* Total stats */}
-                  <div className="space-y-1 text-right">
-                    <p className="text-2xl font-bold text-gray-100/80 
-                      tracking-tight group-hover:text-yellow-300/80 
-                      transition-colors duration-300">
+                  {/* Total stats - slightly muted */}
+                  <div className="pt-1 border-t border-gray-700/50">
+                    <p className="text-lg font-bold text-gray-300/90">
                       {stat.total.value}
                     </p>
-                    <p className="text-xs text-gray-400 uppercase tracking-wider">
+                    <p className="text-[10px] text-gray-500 font-medium uppercase tracking-wider">
                       {stat.total.label}
                     </p>
                   </div>
-
-                  {/* Decorative line */}
-                  <div className="absolute bottom-0 left-4 right-4 h-0.5 
-                    bg-gradient-to-r from-transparent via-gray-100/10 to-transparent 
-                    opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
               </div>
             </div>
@@ -175,25 +184,6 @@ function Home() {
                     <span className="text-xs font-medium text-yellow-400">{reminder.time}</span>
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Financial Summary */}
-          <div className="relative group lg:col-span-2">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-yellow-500/10 blur-xl rounded-2xl" />
-            <div className="relative p-4 rounded-2xl bg-gray-100/10 backdrop-blur-xl border border-gray-100/20
-              transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20">
-              <h2 className="text-lg font-semibold text-gray-100 mb-4">Financial Overview</h2>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
-                  <h3 className="text-sm text-green-400">Total Income</h3>
-                  <p className="text-xl font-semibold text-green-300">{formatIndianCurrency(2450)}</p>
-                </div>
-                <div className="p-4 rounded-xl bg-pink-500/10 border border-pink-500/20">
-                  <h3 className="text-sm text-pink-400">Total Expenses</h3>
-                  <p className="text-xl font-semibold text-pink-300">{formatIndianCurrency(1280)}</p>
-                </div>
               </div>
             </div>
           </div>
