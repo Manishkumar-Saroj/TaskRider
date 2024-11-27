@@ -10,8 +10,6 @@ const Feedback = () => {
     { value: 'schedule', label: 'Schedule Management' },
     { value: 'finance', label: 'Income & Expenses' },
     { value: 'reminders', label: 'Reminders & Notifications' },
-    { value: 'ui', label: 'User Interface' },
-    { value: 'bug', label: 'Bug Report' },
     { value: 'feature', label: 'Feature Request' },
     { value: 'other', label: 'Other' }
   ];
