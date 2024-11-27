@@ -32,9 +32,9 @@ function Header() {
 
           {/* Middle - Greeting & Date */}
           <div className="text-center">
-            <h1 className="text-md font-semibold text-gray-100">Hi, John</h1>
+            <h1 className="text-md font-semibold text-gray-100">Hi, Manish</h1>
             <p className="text-sm text-gray-300">
-              {currentDate.getDate()} {months[currentDate.getMonth()]}
+              {months[currentDate.getMonth()]} , {currentDate.getDate()}
             </p>
           </div>
 

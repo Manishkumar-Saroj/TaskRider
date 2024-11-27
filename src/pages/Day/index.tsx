@@ -113,33 +113,28 @@ function Day() {
           {/* Calendar Header */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
-              <button className="text-2xl font-semibold text-white flex items-center gap-2">
+              <button className="text-2xl font-semibold text-gray-100 flex items-center gap-2">
                 {selectedDate.toLocaleString('default', { month: 'short' })} 
                 <span className="text-sm opacity-60">▼</span>
               </button>
               <button 
                 onClick={scrollToToday}
-                className="px-3 py-1 text-sm text-white/60 hover:text-white border border-white/20 rounded-full hover:border-white/40 transition-colors"
+                className="px-3 py-1 text-sm text-gray-100/60 hover:text-gray-100 border border-gray-100/20 rounded-full hover:border-gray-100/40 transition-colors"
               >
                 Today
               </button>
             </div>
             <div className="flex gap-4">
-              <button className="text-white/60 hover:text-white">
+              <button className="text-gray-100/60 hover:text-gray-100">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
-              <button className="text-white/60 hover:text-white">
+              <button className="text-gray-100/60 hover:text-gray-100">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-              </button>
-              <button className="text-white/60 hover:text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-              </button>
+              </button>              
             </div>
           </div>
 
@@ -157,17 +152,17 @@ function Day() {
                     onClick={() => setSelectedDate(date)}
                     className={`
                       flex flex-col items-center justify-center
-                      w-12 h-16 rounded-full cursor-pointer
-                      transition-all duration-200
+                      w-12 rounded-full cursor-pointer
+                      transition-all duration-200 p-1
                       ${isSelected 
-                        ? 'bg-white text-zinc-900' 
-                        : 'hover:bg-white/10 text-white'}
+                        ? 'bg-gray-100 text-zinc-900' 
+                        : 'hover:bg-gray-100/10 text-gray-100'}
                     `}
                   >
                     <div className="text-xs opacity-60">
                       {date.toLocaleString('default', { weekday: 'short' })}
                     </div>
-                    <div className={`text-lg font-semibold ${isToday && !isSelected ? 'text-blue-400' : ''}`}>
+                    <div className={`text-md font-semibold ${isToday && !isSelected ? 'text-blue-400' : ''}`}>
                       {date.getDate()}
                     </div>
                   </div>
