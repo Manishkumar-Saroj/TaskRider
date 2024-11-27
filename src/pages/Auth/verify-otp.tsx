@@ -146,7 +146,8 @@ function VerifyOTP() {
               ) : (
                 <button 
                   onClick={handleResendOTP}
-                  className="text-yellow-400 hover:text-yellow-500 transition-colors duration-300"
+                  disabled={!canResend}
+                  className="text-yellow-400 hover:text-yellow-500 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Resend OTP
                 </button>
