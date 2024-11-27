@@ -9,7 +9,7 @@ function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handlers = useSwipeable({
-    onSwipedRight: () => setIsSidebarOpen(true),
+    // onSwipedRight: () => setIsSidebarOpen(true),
     onSwipedLeft: () => setIsSidebarOpen(false),
     trackMouse: true,
     trackTouch: true,
