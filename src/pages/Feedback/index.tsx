@@ -22,7 +22,7 @@ const Feedback = () => {
   ];
 
   return (
-    <div className="min-h-screen px-4 py-6 sm:p-6 bg-zinc-900">
+    <div className="min-h-screen px-4 py-6 sm:p-6 bg-zinc-900 ">
       <div className="relative max-w-3xl lg:max-w-xl mx-auto">
         {/* Glow effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-purple-500/20 to-pink-500/20 blur-3xl rounded-full" />

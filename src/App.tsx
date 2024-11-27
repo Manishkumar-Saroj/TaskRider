@@ -19,19 +19,21 @@ function AppContent() {
   }, [location.pathname]);
 
   return (
-    <Routes>
-      <Route element={<Dashboard />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/day" element={<Day />} />
-        <Route path="/week" element={<Week />} />
-        <Route path="/month" element={<Month />} />
-      </Route>
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-      <Route path="/faq" element={<FAQ />} />
-      <Route path="/feedback" element={<Feedback />} />
-    </Routes>
+    <div className="h-screen overflow-y-auto scrollbar-none">
+      <Routes>
+        <Route element={<Dashboard />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/day" element={<Day />} />
+          <Route path="/week" element={<Week />} />
+          <Route path="/month" element={<Month />} />
+        </Route>
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/feedback" element={<Feedback />} />
+      </Routes>
+    </div>
   );
 }
 

@@ -27,7 +27,7 @@ function Dashboard() {
       isSidebarOpen ? 'overflow-hidden' : ''
     }`} {...handlers}>
       <Header />
-      <main className="flex-1 mb-16 pt-24">
+      <main className="flex-1 mb-16 pt-24 overflow-y-auto scrollbar-none">
         <Outlet />
       </main>
       <BottomNav 
